@@ -4,14 +4,15 @@ import sys
 
 with open('password.txt', mode='r+') as my_file:
     #  Type password to be checked here.
-    password_test = my_file.write('password123')
+    password_test = my_file.write('')
 
 
 def request_api_data(query_char):
     url = "https://api.pwnedpasswords.com/range/" + query_char
     res = requests.get(url)
     if res.status_code != 200:
-        raise RuntimeError(f"Error fetching: {res.status_code}, check the api and try again.")
+        raise RuntimeError(
+            f"Error fetching: {res.status_code}, check the api and try again.")
     return res
 
 
@@ -38,7 +39,8 @@ def main(args):
         secret = len(password) * '*'
         count = pwned_api_check(password)
         if count:
-            print(f'{secret} was found {count} times... you should probably change your password.')
+            print(
+                f'{secret} was found {count} times... you should probably change your password.')
         else:
             print(f'{secret} was NOT found. Carry on!')
     with open('password.txt', mode="w") as my_file3:
@@ -48,5 +50,3 @@ def main(args):
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
-
-
